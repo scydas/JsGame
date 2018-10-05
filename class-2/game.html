@@ -87,11 +87,11 @@
 
 // 加载图片
 var imageFromPath = function(path) {
-    // log('11111111')
     var img = new Image()
     img.src = path
     return img
 }
+
 // 一个 Paddle 对象
 var Paddle = function() {
     var image = imageFromPath('paddle.png')
@@ -112,7 +112,7 @@ var Paddle = function() {
     o.collide = function(ball) {
         if (ball.y + ball.image.height > o.y) {
             if (ball.x > o.x && ball.x < o.x + o.image.width) {
-                log('相撞了')
+                log('球和挡板相撞了')
                 return true
             }
         }
@@ -127,8 +127,8 @@ var Ball = function() {
         image: image,
         x: 100,
         y: 200,
-        speedX: 10, // 球有两个速度
-        speedY: 10,
+        speedX: 5, // 球有两个速度
+        speedY: 5,
         fired: false, // 发射状态
     }
     // 发射改变 fired 状态
@@ -153,11 +153,22 @@ var Ball = function() {
         }
     }
     // ball 的反弹函数
-    o.fjtm = function() {
-        log('反弹了')
+    o.fjtj = function() {
+        // log('反弹了')
         o.speedY *= -1 
     }
     return o
+}
+// 判断相撞的函数
+var rectIntersects = function(a, b) {
+    var o = a
+    if (b.y > o.y && b.y < o.y + o.image.height) {
+            if (b.x > o.x && b.x < o.x + o.image.width) {
+                log('相撞了')
+                return true
+            }
+        }
+    return false
 }
 
 var Block = function() {
@@ -166,7 +177,7 @@ var Block = function() {
         image: image,
         x: 0,
         y: 0,
-        w: 50,
+        w: 40,
         h: 20,
         alive: true, // 砖块是否显示，默认是显示的
     }
@@ -176,10 +187,21 @@ var Block = function() {
     }
     // 检测砖块和球是否已经碰撞了
     o.collide = function (ball) {
-        
+        var b = ball
+        // if (b.y > o.y && b.y < o.y + o.image.height) {
+        //     if (b.x > o.x && b.x < o.x + o.image.width) {
+        //         log('球和砖块相撞了')
+        //         return ture
+        //     }
+        // }
+        // return false
+
+        // 判断相撞，要有两次 o in b， b in o，并且砖块 alive = true
+        return o.alive && (rectIntersects(o, b) || rectIntersects(b, o))
     }
     return o
 }
+
 // 一个 guagame 对象，用来加载画布
 var GuaGame = function() {
     var g = {
@@ -241,7 +263,17 @@ var __main = function() {
     // ball 载入
     var ball = Ball()
     // block 载入
-    var block = Block()
+    // var block = Block()
+    // 加载多个 block
+    var blocks = []
+    for (var i = 0; i < 3; i++) {
+        var b = Block()
+        // 设置 block 座标
+        b.x = 100 * i
+        b.y = 150
+        // 添加 block 到 blocks
+        blocks.push(b)
+    }
     // events 按键事件
     game.registerAction('a', function() {
         paddle.moveLeft()
@@ -256,19 +288,47 @@ var __main = function() {
     game.update = function() {
         // 球运动
         ball.move()
-        // 球和挡板碰撞
+        // ball 和 paddle 碰撞
         if (paddle.collide(ball)) {
             // todo, ball 的反弹函数
-            ball.fjtm()
+            ball.fjtj()
+        }
+        // ball 和 block 块相撞
+        // if (block.collide(ball)) {
+        //     log('球和砖块相撞了')
+        //     // 相撞了砖块 alive = false
+        //     block.kill()
+        //     // 反弹函数
+        //     ball.fjtj()
+        // }
+        // ball 和 blocks 相撞了
+        for (var i = 0; i < blocks.length; i++) {
+            var block = blocks[i]
+            if (block.collide(ball)) {
+                log('球和砖块相撞了')
+                // 相撞了砖块 alive = false
+                block.kill()
+                // 反弹函数
+                ball.fjtj()
+            }
         }
     }
     game.draw = function() {
         // 调用 GuaGame 的 drawImage 来draw 画图
         game.drawImage(paddle)
         game.drawImage(ball)
-        if (block.alive) {
-            game.drawImage(block)
-        }
+        // draw block
+        // if (block.alive) {
+        //     game.drawImage(block)
+        // }
+
+        // draw blocks
+        for (var i = 0; i < blocks.length; i++) {
+            var block = blocks[i]
+            if (block.alive) {
+                game.drawImage(block)
+            }
+        } 
     }
 }
 __main()
