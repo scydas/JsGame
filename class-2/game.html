@@ -9,6 +9,10 @@
                 border: 1px black solid;
             }
         </style>
+        <script src="guagame.js"></script>
+        <script src="paddle.js"></script>
+        <script src="ball.js"></script>
+        <script src="block.js"></script>
     </head>
     <body>
         <canvas id="id-canvas" width="400" height="300"></canvas>
@@ -92,73 +96,6 @@ var imageFromPath = function(path) {
     return img
 }
 
-// 一个 Paddle 对象
-var Paddle = function() {
-    var image = imageFromPath('paddle.png')
-    var o = {
-        image: image,
-        x: 100,
-        y: 250,
-        speed: 5,
-    }
-    // paddle 移动逻辑
-    o.moveLeft = function() {
-        o.x -= o.speed
-    }
-    o.moveRight = function() {
-        o.x += o.speed
-    }
-    // paddle 和 ball 的碰撞,碰撞了返回 true
-    o.collide = function(ball) {
-        if (ball.y + ball.image.height > o.y) {
-            if (ball.x > o.x && ball.x < o.x + o.image.width) {
-                log('球和挡板相撞了')
-                return true
-            }
-        }
-        return false
-    }
-    return o
-} 
-
-var Ball = function() {
-    var image = imageFromPath('ball.png')
-    var o = {
-        image: image,
-        x: 100,
-        y: 200,
-        speedX: 5, // 球有两个速度
-        speedY: 5,
-        fired: false, // 发射状态
-    }
-    // 发射改变 fired 状态
-    o.fire = function() {
-        o.fired = true
-    }
-    // ball 的移动逻辑
-    o.move = function() {
-        // 发射状态
-        if (o.fired) {
-            // log('fifff')
-            // 撞到墙了，球要反弹，球宽高都是8
-            if (o.x < 0 || o.x + 8> 400) {
-                o.speedX = -o.speedX
-            }
-            if (o.y < 0 || o.y + 8> 300) {
-                o.speedY = -o.speedY
-            }
-            // 球运动
-            o.x += o.speedX
-            o.y += o.speedY
-        }
-    }
-    // ball 的反弹函数
-    o.fjtj = function() {
-        // log('反弹了')
-        o.speedY *= -1 
-    }
-    return o
-}
 // 判断相撞的函数
 var rectIntersects = function(a, b) {
     var o = a
@@ -171,93 +108,9 @@ var rectIntersects = function(a, b) {
     return false
 }
 
-var Block = function() {
-    var image = imageFromPath('block.png')
-    var o = {
-        image: image,
-        x: 0,
-        y: 0,
-        w: 40,
-        h: 20,
-        alive: true, // 砖块是否显示，默认是显示的
-    }
-    // 砖块碰撞，不在显示
-    o.kill = function() {  
-        o.alive = false
-    }
-    // 检测砖块和球是否已经碰撞了
-    o.collide = function (ball) {
-        var b = ball
-        // if (b.y > o.y && b.y < o.y + o.image.height) {
-        //     if (b.x > o.x && b.x < o.x + o.image.width) {
-        //         log('球和砖块相撞了')
-        //         return ture
-        //     }
-        // }
-        // return false
-
-        // 判断相撞，要有两次 o in b， b in o，并且砖块 alive = true
-        return o.alive && (rectIntersects(o, b) || rectIntersects(b, o))
-    }
-    return o
-}
-
-// 一个 guagame 对象，用来加载画布
-var GuaGame = function() {
-    var g = {
-        // 储存 key 和 function
-        actions: {},
-        // 储存按键的状态
-        keydowns: {},
-    }
-    // 拿到 canvas  
-    var canvas = document.querySelector('#id-canvas')
-    // 在 canvas 上指定 2d 图
-    var context = canvas.getContext('2d')
-
-    g.canvas = canvas
-    g.context = context
-
-    // draw 
-    g.drawImage = function(guaImage) {
-        g.context.drawImage(guaImage.image, guaImage.x, guaImage.y)
-    }
-
-    // event 按键状态,在 keydowns 储存
-    window.addEventListener('keydown', function(event) {
-        g.keydowns[event.key] =true
-    })
-    window.addEventListener('keyup', function(event) {
-        g.keydowns[event.key] = false
-    })
-    // 注册时间，按了那个 key 要执行什么函数, 在 setInterval 中调用
-    g.registerAction= function(key, callback) {
-        g.actions[key] = callback
-    }
-    // timer
-    setInterval(function() {
-        // events  
-        var actions = Object.keys(g.actions)  // 获取到所有的 actions
-        for (var i = 0; i < actions.length; i++) {   
-            var key  = actions[i]
-            if(g.keydowns[key]) {
-                // 如果按键按下，调用注册的 action 的 callback
-                g.actions[key]()
-            }
-        }
-        // update 更新
-        g.update()
-        // clear 清除画板
-        context.clearRect(0, 0, canvas.width, canvas.height)
-        // drew 画图
-        g.draw()
-    }, 1000/30)
-    return g
-}
-
 var __main = function() {
-    // GuaGame 载入
-    var game = GuaGame()
+    // GuaGame 载入,并初始化 fps
+    var game = GuaGame(30)
     // paddle 载入
     paddle = Paddle()
     // ball 载入
