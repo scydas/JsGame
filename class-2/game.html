@@ -9,6 +9,7 @@
                 border: 1px black solid;
             }
         </style>
+        <script src='utils.js'></script>
         <script src="guagame.js"></script>
         <script src="paddle.js"></script>
         <script src="ball.js"></script>
@@ -17,7 +18,6 @@
     <body>
         <canvas id="id-canvas" width="400" height="300"></canvas>
 <script>
-    var log = console.log.bind(console)
     // // 拿到 canvas
     // var canvas = document.querySelector('#id-canvas')
     // // 在 canvas 上指定 2d 图
@@ -87,26 +87,6 @@
     //     log(rightDown, leftDown)
     //     context.drawImage(img, x, y)
     // }, 1000/30)
-
-
-// 加载图片
-var imageFromPath = function(path) {
-    var img = new Image()
-    img.src = path
-    return img
-}
-
-// 判断相撞的函数
-var rectIntersects = function(a, b) {
-    var o = a
-    if (b.y > o.y && b.y < o.y + o.image.height) {
-            if (b.x > o.x && b.x < o.x + o.image.width) {
-                log('相撞了')
-                return true
-            }
-        }
-    return false
-}
 
 var __main = function() {
     // GuaGame 载入,并初始化 fps
