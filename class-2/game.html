@@ -275,17 +275,29 @@ var __main = function() {
         blocks.push(b)
     }
     // events 按键事件
-    game.registerAction('a', function() {
+    game.registerAction('a', function(){
         paddle.moveLeft()
     })
-    game.registerAction('d', function () {
+    game.registerAction('d', function(){
         paddle.moveRight()
     })
-    game.registerAction('f', function () {
+    game.registerAction('f', function(){
         ball.fire()
+    })
+    // 注册暂停事件
+    var paused = false
+    window.addEventListener('keydown', function(event){
+        if (event.key == 'p') {
+            log('按下了暂停')
+            paused = !paused
+        }
     })
     // 直接覆盖 update 函数
     game.update = function() {
+        // 按了暂停
+        if (paused) {
+            return 
+        }
         // 球运动
         ball.move()
         // ball 和 paddle 碰撞
