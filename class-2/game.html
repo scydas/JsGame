@@ -53,13 +53,13 @@ var __main = function() {
     // 注册暂停事件
     var paused = false
     window.addEventListener('keydown', function(event){
-        if (event.key == 'p') {
+        var k = event.key
+        if (k == 'p') {
             // log('按下了暂停')
             paused = !paused
-        } else if (event.key == '1') {
-            blocks = loadLevel(1)
-        } else if (event.key == '2') {
-            blocks = loadLevel(2)
+        } else if ('1234567'.includes(k)) {
+            // 载入关卡功能
+            blocks = loadLevel(Number(k))
         }
     })
     // 直接覆盖 update 函数

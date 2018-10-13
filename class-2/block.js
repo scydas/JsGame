@@ -9,10 +9,14 @@ var Block = function (position) {
         w: 40,
         h: 20,
         alive: true, // 砖块是否显示，默认是显示的
+        lifes: p[2] || 1  // 如果 p[2] 存在，不存在就是 1
     }
     // 砖块碰撞，不在显示
     o.kill = function () {
-        o.alive = false
+        o.lifes --
+        if (o.lifes < 1) {
+            o.alive = false
+        }
     }
     // 检测砖块和球是否已经碰撞了
     o.collide = function (ball) {
