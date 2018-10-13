@@ -30,7 +30,26 @@ var loadLevel = function(n) {
     }
     return blocks
 }
+var blocks = []
+var enableDebugMode = function(enable) {
+    if (!enable) {
+        return
+    }
+    window.paused = false
+    window.addEventListener('keydown', function (event) {
+        var k = event.key
+        if (k == 'p') {
+            // log('按下了暂停')
+            paused = !paused
+        } else if ('1234567'.includes(k)) {
+            // 载入关卡功能
+            blocks = loadLevel(Number(k))
+        }
+    })
+}
 var __main = function() {
+    // debug 模式开启
+    enableDebugMode(true)
     // GuaGame 载入,并初始化 fps
     var game = GuaGame(30)
     // paddle 载入
@@ -38,7 +57,7 @@ var __main = function() {
     // ball 载入
     var ball = Ball()
     // block 载入
-    var blocks = loadLevel(1)
+    blocks = loadLevel(1)
     
     // events 按键事件
     game.registerAction('a', function(){
@@ -52,16 +71,8 @@ var __main = function() {
     })
     // 注册暂停事件
     var paused = false
-    window.addEventListener('keydown', function(event){
-        var k = event.key
-        if (k == 'p') {
-            // log('按下了暂停')
-            paused = !paused
-        } else if ('1234567'.includes(k)) {
-            // 载入关卡功能
-            blocks = loadLevel(Number(k))
-        }
-    })
+    // // debug 模式开启
+    // enableDebugMode(true)
     // 直接覆盖 update 函数
     game.update = function() {
         // 按了暂停

@@ -30,8 +30,10 @@ var GuaGame = function (fps) {
     g.registerAction = function (key, callback) {
         g.actions[key] = callback
     }
+
     // timer
-    setInterval(function () {
+    window.fps = 30
+    var runloop = function(fps) {
         // events  
         var actions = Object.keys(g.actions)  // 获取到所有的 actions
         for (var i = 0; i < actions.length; i++) {
@@ -47,6 +49,14 @@ var GuaGame = function (fps) {
         context.clearRect(0, 0, canvas.width, canvas.height)
         // drew 画图
         g.draw()
+        // next run loop
+        setTimeout(function () {
+            runloop()
+        }, 1000 / fps)
+    }
+
+    setTimeout(function () {
+        runloop()
     }, 1000 / fps)
     return g
 }
