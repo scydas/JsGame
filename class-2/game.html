@@ -14,80 +14,22 @@
         <script src="paddle.js"></script>
         <script src="ball.js"></script>
         <script src="block.js"></script>
+        <script src="level.js"></script>
     </head>
     <body>
         <canvas id="id-canvas" width="400" height="300"></canvas>
 <script>
-    // // 拿到 canvas
-    // var canvas = document.querySelector('#id-canvas')
-    // // 在 canvas 上指定 2d 图
-    // var context = canvas.getContext('2d')
-
-    // // 挡板速度
-    // var speed = 5
-    // // 载入图片
-    // var x = 150
-    // var y = 100
-    // var img = new Image()
-    // img.src = 'paddle.png'
-    // // log(img)
-    // // 加载图片完成后，要使用 onload 执行想要的操作,使用火狐开发者版本不用
-    // // 这样，直接使用 context.drawImage(img, 0, 0), 这个函数也可以不是用，如果图片加载不成功，在加上
-    // img.onload = function() {
-    //     // log('imgssss')
-    //     context.drawImage(img, x, y)
-    // }
-
-    // // 按键事件的状态
-    // var leftDown = false
-    // var rightDown = false
-    // // events 按键事件
-    // window.addEventListener('keydown', function(event) {
-    //     log('keydown')
-    //     var k = event.key
-    //     if (k == 'a') {
-    //         log('left')
-    //         // x -= 10
-    //         // // 清除 画布
-    //         // context.clearRect(0, 0, canvas.width, canvas.height)
-    //         // // 重画 图片
-    //         // context.drawImage(img, x, y)
-    //         leftDown = true
-    //     } else if (k == 'd') {
-    //         log('right')
-    //         // x += 10
-    //         // // 同上
-    //         // context.clearRect(0, 0, canvas.width, canvas.height)
-    //         // context.drawImage(img, x, y)
-    //         rightDown = true
-    //     }
-    // })
-    // window.addEventListener('keyup', function(event) {
-    //     log('keyup')
-    //     var k = event.key
-    //     if (k == 'a') {
-    //         leftDown = false
-    //     } else if (k == 'd') {
-    //         rightDown = false
-    //     }
-    // })
-    // // 定时器 timer,
-    // setInterval(function() {
-    //     if (leftDown == true){
-    //         x -= speed
-    //         log('按下', x, speed)
-    //     } else if (rightDown == true) {
-    //         x += speed
-    //         log('按下', x, speed)
-    //     }
-    //     // 清除 画布
-    //     context.clearRect(0, 0, canvas.width, canvas.height)
-    //     // 重画 图片
-    //     log(x, speed)
-    //     log(rightDown, leftDown)
-    //     context.drawImage(img, x, y)
-    // }, 1000/30)
-
+var loadLevel = function(n) {
+    n = n - 1
+    var level = levels[n]
+    var blocks = []
+    for (var i = 0; i < level.length; i++) {
+        var p = level[i]
+        var b = Block(p)
+        blocks.push(b)
+    }
+    return blocks
+}
 var __main = function() {
     // GuaGame 载入,并初始化 fps
     var game = GuaGame(30)
@@ -96,17 +38,8 @@ var __main = function() {
     // ball 载入
     var ball = Ball()
     // block 载入
-    // var block = Block()
-    // 加载多个 block
-    var blocks = []
-    for (var i = 0; i < 3; i++) {
-        var b = Block()
-        // 设置 block 座标
-        b.x = 100 * i
-        b.y = 150
-        // 添加 block 到 blocks
-        blocks.push(b)
-    }
+    var blocks = loadLevel(1)
+    
     // events 按键事件
     game.registerAction('a', function(){
         paddle.moveLeft()
@@ -121,8 +54,12 @@ var __main = function() {
     var paused = false
     window.addEventListener('keydown', function(event){
         if (event.key == 'p') {
-            log('按下了暂停')
+            // log('按下了暂停')
             paused = !paused
+        } else if (event.key == '1') {
+            blocks = loadLevel(1)
+        } else if (event.key == '2') {
+            blocks = loadLevel(2)
         }
     })
     // 直接覆盖 update 函数

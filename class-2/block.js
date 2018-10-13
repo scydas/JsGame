@@ -1,9 +1,11 @@
-var Block = function () {
+var Block = function (position) {
+    // position 是 [0, 0] 格式
+    var p = position
     var image = imageFromPath('block.png')
     var o = {
         image: image,
-        x: 0,
-        y: 0,
+        x: p[0],
+        y: p[1],
         w: 40,
         h: 20,
         alive: true, // 砖块是否显示，默认是显示的
