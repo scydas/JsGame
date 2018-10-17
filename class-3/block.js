@@ -1,16 +1,16 @@
-var Block = function (position) {
+var Block = function (game, position) {
     // position 是 [0, 0] 格式
     var p = position
-    var image = imageFromPath('block.png')
+    var img = game.imageByName('block')
     var o = {
-        image: image,
         x: p[0],
         y: p[1],
-        w: 40,
-        h: 20,
         alive: true, // 砖块是否显示，默认是显示的
         lifes: p[2] || 1  // 如果 p[2] 存在，不存在就是 1
     }
+    o.image = img.image
+    o.w = img.w
+    o.h = img.h
     // 砖块碰撞，不在显示
     o.kill = function () {
         o.lifes --

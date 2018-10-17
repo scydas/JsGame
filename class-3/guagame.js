@@ -1,10 +1,14 @@
 // 一个 guagame 对象，用来加载画布
-var GuaGame = function (fps) {
+var GuaGame = function (fps, images, runCallback) {
+    // images 是一个对象，里边是图片的名字
+    // 程序会在所有图片载入成功后运行
     var g = {
         // 储存 key 和 function
         actions: {},
         // 储存按键的状态
         keydowns: {},
+        // 图片
+        images: {}
     }
     // 拿到 canvas  
     var canvas = document.querySelector('#id-canvas')
@@ -56,9 +60,44 @@ var GuaGame = function (fps) {
             runloop()
         }, 1000 / window.fps)
     }
-
-    setTimeout(function () {
-        runloop()
-    }, 1000 / fps)
-    return g
+    var loads = []
+    // 预先载入所有图片
+    var names = Object.keys(images)
+    for (var i = 0; i < names.length; i++) {
+        let name = names[i]
+        var path = images[name]
+        let img = new Image()
+        img.src = path
+        img.onload = function() {
+            // 存入 g.image 中
+            g.images[name] = img
+            // 所有图片载入后执行，调用 run
+            loads.push(1)
+            log('载入图片', loads.length, names.length)
+            if (loads.length == names.length) {
+                log('111111111', g.images)
+                g.run()
+            }
+        }
+    }
+    g.imageByName= function(name) {
+        log('load by image', g.images)
+        var img = g.images[name]
+        log('3333', img)
+        var image = {
+            w: img.width,
+            h: img.height,
+            image: img,
+        }
+        return image
+    }
+    g.run = function() {
+        // 第一次运行需要加上 runCallback
+        runCallback(g)
+        // 开始运行程序
+        setTimeout(function () {
+            runloop()
+        }, 1000 / fps)
+        return g
+    }
 }
