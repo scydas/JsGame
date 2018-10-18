@@ -73,17 +73,14 @@ var GuaGame = function (fps, images, runCallback) {
             g.images[name] = img
             // 所有图片载入后执行，调用 run
             loads.push(1)
-            log('载入图片', loads.length, names.length)
+            // log('载入图片', loads.length, names.length)
             if (loads.length == names.length) {
-                log('111111111', g.images)
                 g.run()
             }
         }
     }
     g.imageByName= function(name) {
-        log('load by image', g.images)
         var img = g.images[name]
-        log('3333', img)
         var image = {
             w: img.width,
             h: img.height,

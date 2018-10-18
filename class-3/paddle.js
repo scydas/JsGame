@@ -7,9 +7,7 @@ var Paddle = function (game) {
     //     y: 250,
     //     speed: 5,
     // }
-    log('22222222222', game)
     var o = game.imageByName('paddle')
-    game.imageByName
     o.x = 100
     o.y = 250
     o.speed = 15
