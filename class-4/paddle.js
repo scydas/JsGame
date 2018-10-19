@@ -16,8 +16,8 @@ var Paddle = function (game) {
         if (x < 0) {
             x = 0
         }
-        if (x > 400 - o.image.width) {
-            x = 400 - o.image.width
+        if (x > 400 - o.w) {
+            x = 400 - o.w
         }
         o.x = x
     }
@@ -28,10 +28,21 @@ var Paddle = function (game) {
         o.move(o.x + o.speed)
     }
     // paddle 和 ball 的碰撞,碰撞了返回 true
+    var aInb = function(x, x1, x2) {
+        return x >= x1 && x <= x2
+    }
     o.collide = function (ball) {
-        if (ball.y + ball.image.height > o.y) {
-            if (ball.x > o.x && ball.x < o.x + o.image.width) {
-                log('球和挡板相撞了')
+        // if (ball.y + ball.image.height > o.y) {
+        //     if (ball.x > o.x && ball.x < o.x + o.image.width) {
+        //         log('球和挡板相撞了')
+        //         return true
+        //     }
+        // }
+        // return false
+        var a = o
+        var b = ball
+        if (aInb(a.x, b.x, b.x + b.w) || aInb(b.x, a.x, a.x + a.w)) {
+            if (aInb(a.y, b.y, b.y + b.h) || aInb(b.y, a.y, a.y + a.h)) {
                 return true
             }
         }
