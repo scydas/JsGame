@@ -41,7 +41,7 @@ var Ball = function (game) {
         // log('反弹了')
         o.speedY *= -1
     }
-    // 判断一个点是否在矩形内
+    // 判断一个点是否在矩形内(点击的点)
     o.hasPoint = function(x, y) {
         var xIn = x >= o.x && x <= o.x + o.w
         var yIn = y >= o.y && y <= o.y + o.h

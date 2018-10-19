@@ -11,13 +11,21 @@ var Paddle = function (game) {
     o.x = 100
     o.y = 250
     o.speed = 15
-    var paddle = o
     // paddle 移动逻辑
+    o.move = function(x) {
+        if (x < 0) {
+            x = 0
+        }
+        if (x > 400 - o.image.width) {
+            x = 400 - o.image.width
+        }
+        o.x = x
+    }
     o.moveLeft = function () {
-        o.x -= o.speed
+        o.move(o.x - o.speed)
     }
     o.moveRight = function () {
-        o.x += o.speed
+        o.move(o.x + o.speed)
     }
     // paddle 和 ball 的碰撞,碰撞了返回 true
     o.collide = function (ball) {
