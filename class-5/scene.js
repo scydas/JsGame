@@ -44,6 +44,10 @@ var Scene = function(game) {
         game.context.fillText('分数: ' + score, 10, 290)
     }
     s.update = function() {
+        // 暂停功能
+        if (window.paused) {
+                return
+            }
         // 球运动
         ball.move()
         // ball 和 paddle 碰撞

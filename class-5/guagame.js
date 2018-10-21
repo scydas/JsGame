@@ -49,11 +49,13 @@ var GuaGame = function (fps, images, runCallback) {
             }
         }
         // update 更新
-        g.update()
+        // g.update()
+        g.scene.update()
         // clear 清除画板
         context.clearRect(0, 0, canvas.width, canvas.height)
         // drew 画图
-        g.draw()
+        // g.draw()
+        g.scene.draw()
         // next run loop
         // 递归调用 
         setTimeout(function () {
@@ -75,7 +77,8 @@ var GuaGame = function (fps, images, runCallback) {
             loads.push(1)
             // log('载入图片', loads.length, names.length)
             if (loads.length == names.length) {
-                g.run()
+                // g.run()
+                g.__start()
             }
         }
     }
@@ -88,13 +91,21 @@ var GuaGame = function (fps, images, runCallback) {
         }
         return image
     }
-    g.run = function() {
-        // 第一次运行需要加上 runCallback
-        runCallback(g)
+    g.runWithScene = function(scene) {
+        g.scene = scene
         // 开始运行程序
         setTimeout(function () {
             runloop()
         }, 1000 / fps)
-        return g
     }
+    g.__start = function() {
+        // 第一次运行需要加上 runCallback
+        runCallback(g)
+        // 开始运行程序
+        // setTimeout(function () {
+        //     runloop()
+        // }, 1000 / fps)
+        // return g
+    }
+    return g
 }
