@@ -50,6 +50,11 @@ var Scene = function(game) {
             }
         // 球运动
         ball.move()
+        // 判断游戏结束，跳转到结束画面
+        if (ball.y > paddle.y) {
+            var end = SceneEnd(game)
+            game.replaceScene(end)
+        }
         // ball 和 paddle 碰撞
         if (paddle.collide(ball)) {
             // todo, ball 的反弹函数

@@ -98,6 +98,9 @@ var GuaGame = function (fps, images, runCallback) {
             runloop()
         }, 1000 / fps)
     }
+    g.replaceScene = function(scene) {
+        g.scene = scene
+    }
     g.__start = function() {
         // 第一次运行需要加上 runCallback
         runCallback(g)
