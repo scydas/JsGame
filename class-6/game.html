@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>game 1</title>
+        <!-- 给 canvas 加以个边框 -->
+        <style media="screen">
+            canvas {
+                border: 1px black solid;
+            }
+        </style>
+        <script src='guagame/utils.js'></script>
+        <script src="guagame/mouse.js"></script>
+        <script src="guagame/guagame.js"></script>
+        <script src="scene_main/paddle.js"></script>
+        <script src="scene_main/ball.js"></script>
+        <script src="scene_main/block.js"></script>
+        <script src="scene_main/scene.js"></script>
+        <script src='scene_end/scene_end.js'></script>
+        <script src="level.js"></script>
+    </head>
+    <body>
+        <canvas id="id-canvas" width="400" height="300"></canvas>
+        <hr>
+        <input id=id-input-speed type='range' value='1'>
+        <script src='main.js'></script>
+    </body>
+</html>
