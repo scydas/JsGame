@@ -26,10 +26,11 @@ class SceneEnd extends GuaScene {
             game.replaceScene(s)
         })
     }
-    static new(game) {
-        var i = new this(game)
-        return i
-    }
+    // 使用 SceneTitle.new() 替代 new SceneTitle() 使用方式
+    // static new(game) {
+    //     var i = new this(game)
+    //     return i
+    // }
     draw() {
         // draw lables
         this.game.context.fillText('游戏结束，按 r 再来一次', 100, 190)

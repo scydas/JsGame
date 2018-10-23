@@ -26,10 +26,10 @@ class SceneTitle extends GuaScene {
         })
     }
     // 使用 SceneTitle.new() 替代 new SceneTitle() 使用方式
-    static new(game) {
-        var i = new this(game)
-        return i
-    }
+    // static new(game) {
+    //     var i = new this(game)
+    //     return i
+    // }
     draw() {
         // draw lables
         this.game.context.fillText('按 k 开始游戏', 150, 200)
