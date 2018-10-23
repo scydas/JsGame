@@ -21,10 +21,14 @@
 class SceneEnd extends GuaScene {
     constructor(game) {
         super(game)
-        game.registerAction('k', function(){
-            var s = new Scene(game)
+        game.registerAction('r', function(){
+            var s = SceneTitle.new(game)
             game.replaceScene(s)
         })
+    }
+    static new(game) {
+        var i = new this(game)
+        return i
     }
     draw() {
         // draw lables
