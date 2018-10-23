@@ -52,7 +52,7 @@ var Scene = function(game) {
         ball.move()
         // 判断游戏结束，跳转到结束画面
         if (ball.y > paddle.y) {
-            var end = SceneEnd(game)
+            var end = new SceneEnd(game)
             game.replaceScene(end)
         }
         // ball 和 paddle 碰撞
