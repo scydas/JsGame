@@ -21,6 +21,11 @@ class GuaGame {
         })
         this.init()
     }
+    // 单例模式，静态方法, 为了只初始化 guagame 一次
+    static instance(...args) {
+        this.i = this.i || new this(...args)
+        return this.i
+    }
     drawImage(img) {
         this.context.drawImage(img.image, img.x, img.y)
     }
