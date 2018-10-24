@@ -42,7 +42,7 @@ var __main = function () {
     // var score = 0
     // GuaGame 载入,并初始化 fps, images
     // 这里有个回调的问题需要加上function, 并将操作放在其中
-    var game = GuaGame(30, images, function(game){
+    var game = new GuaGame(30, images, function(game){
         // 使用 scene 抽象了 update, draw
         // var scene = Scene(game)
         // game.update = function () {
