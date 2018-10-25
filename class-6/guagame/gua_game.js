@@ -40,7 +40,7 @@ class GuaGame {
         this.actions[key] = callback
     }
     runloop() {
-        log(window.fps)
+        // log(window.fps)
         var g = this
         // events  
         var actions = Object.keys(g.actions)  // 获取到所有的 actions
