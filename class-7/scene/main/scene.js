@@ -16,6 +16,7 @@ class Scene extends GuaScene {
         this.player = GuaImage.new(this.game, 'player')
         this.player.x = 100
         this.player.y = 200
+        this.cloud = GuaImage.new(this.game, 'cloud')
 
         // event
         // game.registerAction('a', function () {
@@ -27,14 +28,26 @@ class Scene extends GuaScene {
         // game.registerAction('f', function () {
         //     ball.fire()
         // })
-        // this.elements = []
 
+        // 将每个场景的 draw() 提取出来，不需要每个场景都调用，而是自动调用，
+        // 可以在父类 GuaScene 中的 draw() 做，也可以在 gua_game 的 draw() 中做
+        // this.elements = []
+        // this.elements.push(this.bg)
+        // this.elements.push(this.player)
+
+        // 进一步提取
+        this.addElement(this.bg)
+        this.addElement(this.player)
+        this.addElement(this.cloud)
     }
-    draw() {
-        // draw lables
-        // this.game.context.fillText('按 k 开始游戏', 150, 200)
-        this.game.drawImage(this.bg)
-        this.game.drawImage(this.player)
+    // draw() {
+    //     // draw lables
+    //     // this.game.context.fillText('按 k 开始游戏', 150, 200)
+    //     this.game.drawImage(this.bg)
+    //     this.game.drawImage(this.player)
+    // }
+    update() {
+        this.cloud.y += 1
     }
 }
 
