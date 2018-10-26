@@ -16,6 +16,7 @@ class GuaScene {
         }
     }
     addElement(img) {
+        img.scene = this
         this.elements.push(img)
     }
     update() {

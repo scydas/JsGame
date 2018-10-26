@@ -44,6 +44,7 @@ var __main = function () {
         enemy2: 'img/enemy2.png',
         enemy3: 'img/enemy3.png',
         enemy4: 'img/enemy4.png',
+        bullet: 'img/bullet.png',
     }
     // var score = 0
     // GuaGame 载入,并初始化 fps, images

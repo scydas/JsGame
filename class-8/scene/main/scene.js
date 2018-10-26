@@ -21,6 +21,14 @@ class Player extends GuaImage {
     moveDown() {
         this.y += this.speed
     }
+    fire() {
+        var x = this.x + this.w / 2
+        var y = this.y
+        var b = Bullet.new(this.game)
+        b.x = x 
+        b.y = y
+        this.scene.addElement(b)
+    }
 }
 // 随机取整数
 const randomBetween = function(start, end) {
@@ -73,6 +81,21 @@ class Cloud extends GuaImage {
 
     }
 }
+
+class Bullet extends GuaImage {
+    constructor(game) {
+        super(game, 'bullet')
+        this.setup()
+
+    }
+    setup() {
+        this.speed = 10
+    }
+    update() {
+        this.y -= this.speed
+    }
+}
+
 class Scene extends GuaScene {
     constructor(game) {
         super(game)
@@ -140,6 +163,9 @@ class Scene extends GuaScene {
         })
         g.registerAction('s', function () {
             s.player.moveDown()
+        })
+        g.registerAction('f', function () {
+            s.player.fire()
         })
     }
     addElements() {
