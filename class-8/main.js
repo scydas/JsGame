@@ -39,6 +39,11 @@ var __main = function () {
         cloud: 'img/cloud.png',
         player: 'img/player.png',
         sky: 'img/sky.png',
+        enemy0: 'img/enemy0.png',
+        enemy1: 'img/enemy1.png',
+        enemy2: 'img/enemy2.png',
+        enemy3: 'img/enemy3.png',
+        enemy4: 'img/enemy4.png',
     }
     // var score = 0
     // GuaGame 载入,并初始化 fps, images

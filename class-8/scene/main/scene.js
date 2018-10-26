@@ -1,6 +1,9 @@
 class Player extends GuaImage {
     constructor(game) {
         super(game, 'player')
+        this.setup()
+    }
+    setup() {
         this.speed = 10
     }
     update() {
@@ -17,6 +20,35 @@ class Player extends GuaImage {
     }
     moveDown() {
         this.y += this.speed
+    }
+}
+// 随机取整数
+const randomBetween = function(start, end) {
+    var n = Math.random() * (end - start + 1)
+    return Math.floor(n + start)
+}
+
+class Enemy extends GuaImage {
+    constructor(game) {
+        var type = randomBetween(0, 4)
+        var name = 'enemy' + type
+        super(game, name)
+        this.setup()
+
+    }
+    setup() {
+        this.speed = randomBetween(2, 5)
+        this.x = randomBetween(0, 350)
+        this.y = 0
+    }
+    update() {
+        this.y += this.speed
+        if (this.y > 600) {
+            this.setup()
+        } 
+    }
+    moveDown() {
+
     }
 }
 class Scene extends GuaScene {
@@ -39,7 +71,7 @@ class Scene extends GuaScene {
         // this.player.x = 100
         // this.player.y = 200
         this.cloud = GuaImage.new(this.game, 'cloud')
-
+        this.numberOfEnemies = 10
         // event
         // game.registerAction('a', function () {
         //     paddle.moveLeft()
@@ -63,12 +95,13 @@ class Scene extends GuaScene {
         this.addElement(this.bg)
         this.addElement(this.cloud)
         this.addElement(this.player)
+        // 添加敌人
+        this.addElements()
     }
     setupInputs() {
         var g = this.game
         var s = this
 
-        log('1111111', g, s)
         // 这里只能这样写, 注释的不能运行
         // this.game.registerAction('a', function () {
         //     this.player.moveLeft()
@@ -86,6 +119,16 @@ class Scene extends GuaScene {
             s.player.moveDown()
         })
     }
+    addElements() {
+        var es = []
+        for (var i = 0; i < this.numberOfEnemies; i++) {
+            var e = Enemy.new(this.game)
+            es.push(e)
+            this.addElement(e)
+        }
+        // 保存es
+        this.enemies = es
+    }
     // draw() {
     //     // draw lables
     //     // this.game.context.fillText('按 k 开始游戏', 150, 200)
@@ -93,6 +136,8 @@ class Scene extends GuaScene {
     //     this.game.drawImage(this.player)
     // }
     update() {
+        // super 继承父类的 update
+        super.update()
         this.cloud.y += 1
     }
 }
