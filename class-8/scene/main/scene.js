@@ -5,6 +5,7 @@ class Player extends GuaImage {
     }
     setup() {
         this.speed = 10
+        this.cooldown = 0
     }
     update() {
 
@@ -21,13 +22,27 @@ class Player extends GuaImage {
     moveDown() {
         this.y += this.speed
     }
+    update() {
+        if (this.cooldown > 0) {
+            this.cooldown --
+        }
+    }
     fire() {
-        var x = this.x + this.w / 2
-        var y = this.y
-        var b = Bullet.new(this.game)
-        b.x = x 
-        b.y = y
-        this.scene.addElement(b)
+        if (this.cooldown == 0) {
+            this.cooldown = 10
+            var x = this.x + this.w / 2
+            var y = this.y
+            var b = Bullet.new(this.game)
+            b.x = x
+            b.y = y
+            this.scene.addElement(b)
+        }
+        // var x = this.x + this.w / 2
+        // var y = this.y
+        // var b = Bullet.new(this.game)
+        // b.x = x 
+        // b.y = y
+        // this.scene.addElement(b)
     }
 }
 // 随机取整数
