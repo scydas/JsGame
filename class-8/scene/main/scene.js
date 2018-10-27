@@ -1,14 +1,16 @@
+const config = {
+    player_speed: 10,
+}
+
 class Player extends GuaImage {
     constructor(game) {
         super(game, 'player')
         this.setup()
     }
     setup() {
-        this.speed = 10
+        this.speed = config.player_speed
+        log(this.speed)
         this.cooldown = 0
-    }
-    update() {
-
     }
     moveLeft() {
         this.x -= this.speed
@@ -23,6 +25,7 @@ class Player extends GuaImage {
         this.y += this.speed
     }
     update() {
+        this.speed = config.player_speed
         if (this.cooldown > 0) {
             this.cooldown --
         }
