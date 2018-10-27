@@ -3,6 +3,7 @@ const config = {
     cloud_speed: 2,
     enemy_speed: 5,
     bullet_speed: 5,
+    cooldown: 3,
 }
 
 class Player extends GuaImage {
@@ -34,7 +35,7 @@ class Player extends GuaImage {
     }
     fire() {
         if (this.cooldown == 0) {
-            this.cooldown = 10
+            this.cooldown = config.cooldown
             var x = this.x + this.w / 2
             var y = this.y
             var b = Bullet.new(this.game)
@@ -106,9 +107,11 @@ class Bullet extends GuaImage {
 
     }
     setup() {
-        this.speed = 10
+        // 这里使用 config.bullet_speed 会使当前发射的 bullet 速度改变
+        this.speed = config.bullet_speed
     }
     update() {
+        // 这里使用 config.bullet_speed 会使当前画面的全部 bullet 速度改变
         this.y -= this.speed
     }
 }
