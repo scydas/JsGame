@@ -1,5 +1,7 @@
 const config = {
     player_speed: 10,
+    cloud_speed: 2,
+
 }
 
 class Player extends GuaImage {
@@ -9,7 +11,6 @@ class Player extends GuaImage {
     }
     setup() {
         this.speed = config.player_speed
-        log(this.speed)
         this.cooldown = 0
     }
     moveLeft() {
@@ -85,18 +86,15 @@ class Cloud extends GuaImage {
 
     }
     setup() {
-        this.speed = 1
+        this.speed = config.cloud_speed
         this.x = randomBetween(0, 150)
         this.y = -randomBetween(0, 200)
     }
     update() {
-        this.y += this.speed
+        this.y += config.cloud_speed
         if (this.y > 400) {
             this.setup()
         }
-    }
-    moveDown() {
-
     }
 }
 
@@ -203,7 +201,7 @@ class Scene extends GuaScene {
     //     this.game.drawImage(this.player)
     // }
     update() {
-        // super 继承父类的 update
+        // super 继承父类的 updateœ
         super.update()
         this.cloud.y += 1
     }
