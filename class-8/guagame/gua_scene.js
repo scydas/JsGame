@@ -1,6 +1,7 @@
 class GuaScene {
     constructor(game) {
         this.game = game
+        this.debugModelEnable = true
         this.elements = []
     }
     // 将子类中的共同方法提取到父类中
@@ -20,6 +21,12 @@ class GuaScene {
         this.elements.push(img)
     }
     update() {
+        if (this.debugModelEnable) {
+            for (var i = 0; i < this.elements.length; i++) {
+                var e = this.elements[i]
+                e.debug && e.debug()
+            }
+        }
         for (var i = 0; i < this.elements.length; i++) {
             var e = this.elements[i]
             e.update()

@@ -71,14 +71,15 @@ class Enemy extends GuaImage {
         this.y = randomBetween(0, -250)
     }
     update() {
-        this.y += config.enemy_speed
+        // this.y += config.enemy_speed
+        this.y += this.speed
         if (this.y > 600) {
             this.setup()
         } 
     }
-    moveDown() {
-
-    }
+    // debug() {
+    //     this.y += config.enemy_speed
+    // }
 }
 
 class Cloud extends GuaImage {
@@ -88,15 +89,18 @@ class Cloud extends GuaImage {
 
     }
     setup() {
-        this.speed = config.cloud_speed
+        this.speed = 1
         this.x = randomBetween(0, 150)
         this.y = -randomBetween(0, 200)
     }
     update() {
-        this.y += config.cloud_speed
+        // this.y += config.cloud_speed
         if (this.y > 400) {
             this.setup()
         }
+    }
+    debug() {
+        this.y += config.cloud_speed
     }
 }
 
