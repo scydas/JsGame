@@ -1,7 +1,8 @@
 const config = {
     player_speed: 10,
     cloud_speed: 2,
-
+    enemy_speed: 5,
+    bullet_speed: 5,
 }
 
 class Player extends GuaImage {
@@ -66,10 +67,10 @@ class Enemy extends GuaImage {
     setup() {
         this.speed = randomBetween(2, 5)
         this.x = randomBetween(0, 350)
-        this.y = 0
+        this.y = randomBetween(0, -250)
     }
     update() {
-        this.y += this.speed
+        this.y += config.enemy_speed
         if (this.y > 600) {
             this.setup()
         } 
