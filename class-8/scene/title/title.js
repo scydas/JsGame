@@ -20,10 +20,10 @@
 class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)
-        game.registerAction('k', function () {
-            var s = Scene(game)
-            game.replaceScene(s)
-        })
+        // game.registerAction('k', function () {
+        //     var s = Scene(game)
+        //     game.replaceScene(s)
+        // })
     }
     // 使用 SceneTitle.new() 替代 new SceneTitle() 使用方式
     // static new(game) {
