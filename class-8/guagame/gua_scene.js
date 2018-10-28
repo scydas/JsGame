@@ -17,9 +17,7 @@ class GuaScene {
         // }
         for (var i = 0; i < this.elements.length; i++) {
             var e = this.elements[i]
-            // this.game.drawImage(e)
-            // 进一步抽象 调用元素的 draw() 
-            e.draw()      
+            this.game.drawImage(e)    
         }
     }
     addElement(img) {

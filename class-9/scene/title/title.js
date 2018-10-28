@@ -16,14 +16,28 @@
 //     return s
 // }
 
+class GuaLable extends GuaScene {
+    constructor(game) {
+        super(game)
+    }
+    static new(game) {
+        var i  = new this(game)
+        return i
+    }
+    draw() {
+        this.game.context.fillText('hello', 150, 200)
+    }
+}
 // 继承父类 GuaScene
 class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)
-        game.registerAction('k', function () {
-            var s = Scene(game)
-            game.replaceScene(s)
-        })
+        // game.registerAction('k', function () {
+        //     var s = Scene(game)
+        //     game.replaceScene(s)
+        // })
+        var lable = GuaLable.new(game)
+        
     }
     // 使用 SceneTitle.new() 替代 new SceneTitle() 使用方式
     // static new(game) {
@@ -32,6 +46,8 @@ class SceneTitle extends GuaScene {
     // }
     draw() {
         // draw lables
-        this.game.context.fillText('按 k 开始游戏', 150, 200)
+        // this.game.context.fillText('按 k 开始游戏', 150, 200)
+        // 继承父类的 draw()
+        super.draw()
     }
 }
