@@ -26,6 +26,11 @@ class GuaScene {
         img.scene = this
         this.elements.push(img)
     }
+    deleteElement(img) {
+        img.scene = this
+        var index = this.elements.indexOf(img)
+        this.elements.splice(index, 1)
+    }
     update() {
         if (this.debugModelEnable) {
             for (var i = 0; i < this.elements.length; i++) {
