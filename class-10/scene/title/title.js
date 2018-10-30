@@ -22,7 +22,11 @@ class SceneTitle extends GuaScene {
         var lable = GuaLable.new(game, 'hello')
         this.addElement(lable)
 
-        var particle = GuaParticleSystem.new(game)
-        this.addElement(particle)       
+        // var particle = GuaParticleSystem.new(game)
+        // this.addElement(particle)  
+        var r = GuaAnimation.new(game)
+        r.x = 100
+        r.y = 200   
+        this.addElement(r)
     }
 }
