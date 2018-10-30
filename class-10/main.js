@@ -45,12 +45,18 @@ var __main = function () {
         enemy3: 'img/enemy3.png',
         enemy4: 'img/enemy4.png',
         bullet: 'img/bullet.png',
+        // run
         run1: 'img/run-01.png',
         run2: 'img/run-02.png',
         run3: 'img/run-03.png',
         run4: 'img/run-04.png',
         run5: 'img/run-05.png',
         run6: 'img/run-06.png',
+        // 闲置
+        idle1: 'img/idle-00.png',
+        idle2: 'img/idle-01.png',
+        idle3: 'img/idle-02.png',
+        idle4: 'img/idle-03.png',
     }
     // var score = 0
     // GuaGame 载入,并初始化 fps, images

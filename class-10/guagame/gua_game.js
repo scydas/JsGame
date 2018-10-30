@@ -14,10 +14,11 @@ class GuaGame {
         // 这里有一个 this 的陷阱，可以使用 self 和 箭头函数来避免
         var self = this
         window.addEventListener('keydown', event => {
-            this.keydowns[event.key] = true 
+            // 注册按下和松开时间状态
+            this.keydowns[event.key] = 'down' 
         })
         window.addEventListener('keyup', function(){
-            self.keydowns[event.key] = false
+            self.keydowns[event.key] = 'up'
         })
         this.init()
     }
@@ -47,9 +48,15 @@ class GuaGame {
         var actions = Object.keys(g.actions)  // 获取到所有的 actions
         for (var i = 0; i < actions.length; i++) {
             var key = actions[i]
-            if (g.keydowns[key]) {
+            var status = g.keydowns[key]
+            if (status == 'down') {
                 // 如果按键按下，调用注册的 action 的 callback
-                g.actions[key]()
+                // 并传过去一个状态
+                g.actions[key]('down')
+            } else if (status == 'up'){
+                g.actions[key]('up')
+                // 删除这个 key 的状态
+                g.keydowns[key] = null
             }
         }
         // update 更新

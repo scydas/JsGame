@@ -34,13 +34,14 @@ class SceneTitle extends GuaScene {
     }
     setupInputs() {
         var self = this
-        self.game.registerAction('a', function() {
+        // 按键监听只监听了按下但是没监听松开，要在 gua_game.js 改
+        self.game.registerAction('a', function(keyStatus) {
             // 这样是错误的，在回调中不能使用 this
             // this.w.move(2)
-            self.r.move(-2)
+            self.r.move(-2, keyStatus)
         })
-        self.game.registerAction('d', function() {
-            self.r.move(2)
+        self.game.registerAction('d', function (keyStatus) {
+            self.r.move(2, keyStatus)
         })
     }
 }
