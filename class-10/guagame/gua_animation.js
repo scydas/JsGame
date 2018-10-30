@@ -19,10 +19,8 @@ class GuaAnimation {
         this.frameCount--
         if (this.frameCount == 0) {
             this.frameCount = 3
-            log('111111111111', this.frameIndex)
-            //  
+            // 切换图片下标，防止溢出，使用 %
             this.frameIndex = (this.frameIndex + 1) % this.frames.length
-            log('222222222222', this.frameIndex)
 
             // log(this.frameIndex)
             this.texture = this.frames[this.frameIndex]
@@ -30,5 +28,8 @@ class GuaAnimation {
     }
     draw() {
         this.game.drawImage(this)
+    }
+    move(x) {
+        this.x += x
     }
  }
