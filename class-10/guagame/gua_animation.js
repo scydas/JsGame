@@ -49,6 +49,7 @@ class GuaAnimation {
         // this.game.drawImage(this)
         var context = this.game.context
         if (this.flipX) {
+            // 这里是图片翻转
             context.save()
             var x = this.x + this.w / 2
             context.translate(x, 0)
