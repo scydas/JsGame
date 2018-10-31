@@ -24,6 +24,10 @@ class SceneTitle extends GuaScene {
 
         // var particle = GuaParticleSystem.new(game)
         // this.addElement(particle)  
+        // cavs
+        var cave = GuaImage.new(game, 'cave')
+        this.addElement(cave)
+
         var r = GuaAnimation.new(game)
         r.x = 100
         r.y = 200  

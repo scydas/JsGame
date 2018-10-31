@@ -57,6 +57,8 @@ var __main = function () {
         idle2: 'img/idle-01.png',
         idle3: 'img/idle-02.png',
         idle4: 'img/idle-03.png',
+        // 背景
+        cave: 'img/bg_day.png'
     }
     // var score = 0
     // GuaGame 载入,并初始化 fps, images
