@@ -33,6 +33,7 @@ class SceneTitle extends GuaScene {
         g.y = 450
         this.g = g
         this.addElement(g)
+        this.skipCount = 5
 
         var bird = GuaAnimation.new(game)
         bird.x = 100
@@ -42,11 +43,11 @@ class SceneTitle extends GuaScene {
 
         this.setupInputs()
     }
-    update() {
-        super.update()
-        var g = this.g
-        g.x -= 5
-    }
+    // update() {
+    //     super.update()
+    //     var g = this.g
+    //     g.x -= 5
+    // }
     setupInputs() {
         var self = this
         var b = this.bird
