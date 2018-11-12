@@ -32,6 +32,7 @@ class GuaScene {
         this.elements.splice(index, 1)
     }
     update() {
+        this.debug && this.debug()
         if (this.debugModelEnable) {
             for (var i = 0; i < this.elements.length; i++) {
                 var e = this.elements[i]

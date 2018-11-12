@@ -103,9 +103,13 @@ class SceneTitle extends GuaScene {
         bird.x = 100
         bird.y = 200  
         this.bird = bird 
+        this.birdSpeed = 2
         this.addElement(bird)
 
         this.setupInputs()
+    }
+    debug() {
+        this.birdSpeed = config.birdSpeed.value
     }
     update() {
         super.update()
@@ -129,10 +133,10 @@ class SceneTitle extends GuaScene {
         self.game.registerAction('a', function(keyStatus) {
             // 这样是错误的，在回调中不能使用 this
             // this.w.move(2)
-            b.move(-2, keyStatus)
+            b.move(-self.birdSpeed, keyStatus)
         })
         self.game.registerAction('d', function (keyStatus) {
-            b.move(2, keyStatus)
+            b.move(self.birdSpeed, keyStatus)
         })
         self.game.registerAction('j', function (keyStatus) {
             b.jump()
