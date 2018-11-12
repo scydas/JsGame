@@ -26,14 +26,34 @@ class Pipes {
         p2.y = p1.y + p1.h + this.pipeSpace
     }
     update() {
-        for (var p of this.pipes) {
-            p.x -= 5
-            if (p.x < -100) {
-                log(p.x)
-                p.x += this.pipeSpaceX * this.columsOfPipe
-                log(p.x)
+        // for (var p of this.pipes) {
+        //     p.x -= 5
+        //     if (p.x < -100) {
+        //         // log(p.x)
+        //         p.x += this.pipeSpaceX * this.columsOfPipe
+        //         // log(p.x)
+        //         this.resetPipesPosition()
+        //     }
+        // }
+        // 设置管子的间距（这里注意）
+        for (var i = 0; i < this.pipes.length / 2; i += 2) {
+            var p1 = this.pipes[i]
+            var p2 = this.pipes[i+1]
+            p1.x -= 5
+            p2.x -= 5
+            if (p1.x < -100) {
+                p1.x += this.pipeSpaceX * this.columsOfPipe
+            }
+            if (p2.x < -100) {
+                p2.x += this.pipeSpaceX * this.columsOfPipe
+                this.resetPipesPosition(p1, p2)
             }
         }
+    }
+    debug() {
+        this.pipeSpaceX = config.pip_spaceX.value
+        this.pipeSpace = config.pip_space.value
+        // log(this.pipeSpaceX)
     }
     draw() {
         // this.game.drawImage(this)
@@ -50,7 +70,6 @@ class Pipes {
             context.rotate(p.rotation * Math.PI / 180)
             context.translate(-w2, -h2)
             context.drawImage(p.texture, 0, 0)
-
             context.restore()
         }
     }
