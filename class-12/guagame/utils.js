@@ -1,3 +1,4 @@
+var e = sel => document.querySelector(sel)
 // 一些公共函数
 var log = console.log.bind(console)
 
